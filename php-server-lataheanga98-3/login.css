@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f4f7fb;
+}
+
+.login-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left-panel {
+    width: 42%;
+    background: linear-gradient(135deg, #002b4f, #003b6f);
+    color: white;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left-panel h1 {
+    font-size: 42px;
+    margin-bottom: 80px;
+}
+
+.left-panel h1 span {
+    color: #4c8dff;
+}
+
+.left-panel h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.left-panel p {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 420px;
+}
+
+.features {
+    display: flex;
+    gap: 35px;
+    margin-top: 80px;
+    font-size: 18px;
+}
+
+.right-panel {
+    width: 58%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    background: white;
+    width: 520px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.login-box h2 {
+    font-size: 30px;
+    color: #0b1f3a;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.login-box label {
+    display: block;
+    margin-bottom: 8px;
+    color: #0b1f3a;
+    font-weight: bold;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 25px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.remember {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal !important;
+}
+
+a {
+    color: #0057ff;
+    text-decoration: none;
+}
+
+button {
+    width: 100%;
+    padding: 16px;
+    background: #0057ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0047d9;
+}
+
+.error {
+    background: #ffe2e2;
+    color: #b91c1c;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.support {
+    margin-top: 25px;
+    margin-bottom: 0 !important;
+}

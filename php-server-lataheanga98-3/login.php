@@ -1,12 +1,26 @@
 <?php
+session_start();
+include "config.php";
+
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $employee_id = $_POST["employee_id"] ?? "";
     $password = $_POST["password"] ?? "";
 
-    // Temporary test login
-    if ($employee_id === "12345" && $password === "password") {
+    $sql = "SELECT * FROM employees WHERE employee_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $employee_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $employee = $result->fetch_assoc();
+
+    if ($employee && $password === $employee["password"]) {
+        $_SESSION["employee_id"] = $employee["employee_id"];
+        $_SESSION["name"] = $employee["name"];
+        $_SESSION["role"] = $employee["role"];
+
         header("Location: dashboard.php");
         exit;
     } else {

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Manage Leave Requests</h1>
+
+<hr>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Employee</th>
+        <th>Department</th>
+        <th>Dates</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Submitted</th>
+        <th>Reviewed By</th>
+        <th>Action</th>
+    </tr>
+
+    {% for leave in leave_requests %}
+        <tr>
+            <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+
+            <td>
+                {% if leave.employee.department %}
+                    {{ leave.employee.department.name }}
+                {% else %}
+                    No department
+                {% endif %}
+            </td>
+
+            <td>{{ leave.start_date }} to {{ leave.end_date }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.get_status_display }}</td>
+            <td>{{ leave.submitted_at }}</td>
+
+            <td>
+                {% if leave.reviewed_by %}
+                    {{ leave.reviewed_by.username }}
+                {% else %}
+                    Not reviewed yet
+                {% endif %}
+            </td>
+
+            <td>
+                {% if leave.status == "pending" %}
+                    <form method="post" action="{% url 'approve_leave' leave.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Approve</button>
+                    </form>
+
+                    <form method="post" action="{% url 'reject_leave' leave.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Reject</button>
+                    </form>
+                {% else %}
+                    No action needed
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="8">No leave requests found.</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

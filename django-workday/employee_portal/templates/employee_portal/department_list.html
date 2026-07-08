@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Department List</h1>
+
+<p>These are the departments saved in the database.</p>
+
+{% if perms.employee_portal.add_department %}
+    <a href="{% url 'department_create' %}">Add New Department</a>
+{% endif %}
+
+
+<h2>Departments</h2>
+
+<ul>
+    {% for department in departments %}
+        <li>
+            <a href="{% url 'department_detail' department.id %}">
+            <strong>{{ department.name }}</strong>
+            </a>
+            <br>
+            Location:
+            {% if department.location %}
+                {{ department.location }}
+            {% else %}
+                No location added
+            {% endif %}
+            <br>
+            Description:
+            {% if department.description %}
+                {{ department.description }}
+            {% else %}
+                No description added
+            {% endif %}
+        </li>
+        <br>
+    {% empty %}
+        <li>No departments found. Add departments in Django admin.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

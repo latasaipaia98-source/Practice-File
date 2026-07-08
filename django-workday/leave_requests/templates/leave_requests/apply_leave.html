@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Apply for Leave</h1>
+
+<p>Employee: {{ employee.first_name }} {{ employee.last_name }}</p>
+
+<a href="{% url 'my_leave_requests' %}">Back to My Leave Requests</a>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Submit Leave Request</button>
+</form>
+
+{% endblock %}

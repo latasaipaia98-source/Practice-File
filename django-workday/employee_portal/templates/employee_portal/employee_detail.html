@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Employee Profile</h1>
+
+<a href="/employees/">Back to Employee List</a>
+<br>
+<a href="/attendance/">Back to Dashboard</a>
+<br> 
+{% if perms.employee_portal.change_employee %}
+    <a href="{% url 'employee_update' employee.id %}">Edit Employee</a>
+{% endif %}
+<br>
+{% if perms.employee_portal.delete_employee %}
+    <a href="{% url 'employee_delete' employee.id %}">Delete Employee</a>
+{% endif %}
+
+<h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
+
+
+
+<p><strong>Email:</strong> {{ employee.email }}</p>
+<p><strong>Department:</strong> {{ employee.department }}</p>
+<p><strong>Position:</strong> {{ employee.position }}</p>
+<p>
+    <strong>Active:</strong>
+    {% if employee.is_active %}
+        Yes
+    {% else %}
+        No
+    {% endif %}
+</p>
+
+<h2>Attendance Records</h2>
+
+<ul>
+    {% for record in attendance_records %}
+        <li>
+            Clock In: {{ record.clock_in_time }}
+            |
+            Clock Out:
+            {% if record.clock_out_time %}
+                {{ record.clock_out_time }}
+            {% else %}
+                Not clocked out yet
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No attendance records found for this employee.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

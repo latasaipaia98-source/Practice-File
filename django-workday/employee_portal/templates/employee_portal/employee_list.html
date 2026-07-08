@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Employee List</h1>
+
+<p>These are the employees currently saved in the database.</p>
+
+{% if perms.employee_portal.add_employee %}
+    <a href="{% url 'employee_create' %}">Add New Employee</a>
+{% endif %}
+<h2>Employees</h2>
+
+<ul>
+    {% for employee in employees %}
+        <li>
+            <a href="{% url 'employee_detail' employee.id %}">
+                <strong>{{ employee.first_name }} {{ employee.last_name }}</strong>
+            </a>
+            <br>
+            Email: {{ employee.email }}
+            <br>
+            Department: {{ employee.department }}
+            <br>
+            Position: {{ employee.position }}
+        </li>
+        <br>
+    {% empty %}
+        <li>No employees found. Add employees in Django admin.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

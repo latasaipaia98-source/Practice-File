@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Reports Dashboard</h1>
+
+<h2>Summary</h2>
+
+<ul>
+    <li><strong>Total Employees:</strong> {{ total_employees }}</li>
+    <li><strong>Active Employees:</strong> {{ active_employees }}</li>
+    <li><strong>Total Departments:</strong> {{ total_departments }}</li>
+</ul>
+
+<h2>Employees Per Department</h2>
+
+<ul>
+    {% for department in departments %}
+        <li>
+            <strong>{{ department.name }}</strong>:
+            {{ department.employee_count }} employee(s)
+        </li>
+    {% empty %}
+        <li>No departments found.</li>
+    {% endfor %}
+</ul>
+
+<h2>Currently Clocked In</h2>
+
+<ul>
+    {% for record in currently_clocked_in %}
+        <li>
+            {% if record.employee %}
+                {{ record.employee.first_name }} {{ record.employee.last_name }}
+            {% else %}
+                Unknown employee
+            {% endif %}
+            clocked in at {{ record.clock_in_time }}
+        </li>
+    {% empty %}
+        <li>No employees are currently clocked in.</li>
+    {% endfor %}
+</ul>
+
+<h2>Recent Attendance Records</h2>
+
+<ul>
+    {% for record in recent_attendance %}
+        <li>
+            {% if record.employee %}
+                {{ record.employee.first_name }} {{ record.employee.last_name }}
+            {% else %}
+                Unknown employee
+            {% endif %}
+
+            | Clock In: {{ record.clock_in_time }}
+
+            | Clock Out:
+            {% if record.clock_out_time %}
+                {{ record.clock_out_time }}
+            {% else %}
+                Not clocked out yet
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No attendance records found.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

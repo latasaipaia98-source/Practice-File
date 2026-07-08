@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Workday Lite Dashboard</h1>
+<p>Welcome to your Django backend system.</p>
+
+<form action="{% url 'clock_in' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Clock In</button>
+</form>
+
+<h2>Recent Clock Ins</h2>
+
+<ul>
+    {% for record in records %}
+        <li>{{ record.employee_name }} clocked in at {{ record.clock_in_time }}</li>
+    {% empty %}
+        <li>No clock-ins yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workday Lite</title>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
+
+    nav {
+        background-color: #222;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-left a {
+        color: white;
+        margin-right: 15px;
+        text-decoration: none;
+    }
+
+    .nav-left a:hover {
+        text-decoration: underline;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: white;
+    }
+
+    .logout-form {
+        margin: 0;
+    }
+
+    .logout-button {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        padding: 7px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .logout-button:hover {
+        background-color: #b02a37;
+    }
+
+    .container {
+        padding: 25px;
+        background-color: white;
+        margin: 20px;
+        border-radius: 8px;
+    }
+    </style>
+</head>
+
+<body>
+
+  <nav>
+    {% if user.is_authenticated %}
+
+        <div class="nav-left">
+            <a href="/attendance/">Dashboard</a>
+            <a href="/employees/">Employees</a>
+            <a href="/departments/">Departments</a>
+            <a href="/leave/">My Leave Requests</a>
+            <a href="/leave/manage/">Manage Leave</a>
+            <a href="/reports/">Reports</a>
+        </div>
+
+        <div class="nav-right">
+            <span>
+                Welcome, 
+                {% if user.employee_profile %}
+                    {{ user.employee_profile.first_name }}
+                {% else %}
+                    {{ user.username }}
+                {% endif %}
+            </span>
+
+            <form class="logout-form" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="logout-button" type="submit">Logout</button>
+            </form>
+        </div>
+
+    {% else %}
+
+        <div class="nav-left">
+            <a href="/login/">Login</a>
+        </div>
+
+    {% endif %}
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Department Detail</h1>
+
+<a href="/departments/">Back to Department List</a>
+<br>
+
+{% if perms.employee_portal.change_department %}
+    <a href="{% url 'department_update' department.id %}">Edit Department</a>
+{% endif %}
+<br>
+{% if perms.employee_portal.delete_department %}
+    <a href="{% url 'department_delete' department.id %}">Delete Department</a>
+{% endif %}
+<br> 
+<a href="/employees/">View Employees</a>
+<br>
+<a href="/attendance/">Back to Dashboard</a>
+
+<h2>{{ department.name }}</h2>
+
+<p>
+    <strong>Location:</strong>
+    {% if department.location %}
+        {{ department.location }}
+    {% else %}
+        No location added
+    {% endif %}
+</p>
+
+<p>
+    <strong>Description:</strong>
+    {% if department.description %}
+        {{ department.description }}
+    {% else %}
+        No description added
+    {% endif %}
+</p>
+
+<h2>Employees in this Department</h2>
+
+<ul>
+    {% for employee in employees %}
+        <li>
+            <a href="{% url 'employee_detail' employee.id %}">
+                {{ employee.first_name }} {{ employee.last_name }}
+            </a>
+            - {{ employee.position }}
+        </li>
+    {% empty %}
+        <li>No employees assigned to this department yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>My Leave Requests</h1>
+
+<a href="{% url 'apply_leave' %}">Apply for Leave</a>
+
+<hr>
+
+<ul>
+    {% for leave in leave_requests %}
+        <li>
+            <strong>{{ leave.start_date }} to {{ leave.end_date }}</strong>
+            <br>
+            Status: {{ leave.get_status_display }}
+            <br>
+            Reason: {{ leave.reason }}
+            <br>
+            Submitted: {{ leave.submitted_at }}
+
+            {% if leave.reviewed_by %}
+                <br>
+                Reviewed by: {{ leave.reviewed_by.username }}
+                <br>
+                Reviewed at: {{ leave.reviewed_at }}
+            {% endif %}
+        </li>
+        <hr>
+    {% empty %}
+        <li>No leave requests yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
